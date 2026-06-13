@@ -60,7 +60,7 @@ public enum ChartMoment {
     /// Trim trailing zeros so 14.5 -> "14.5" and 8.0 -> "8".
     static func fmt(_ v: Double) -> String {
         if v == v.rounded() { return String(Int(v)) }
-        return String(format: "%g", v)
+        return String(format: "%.10g", v)
     }
 }
 
