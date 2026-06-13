@@ -66,7 +66,7 @@
 //#define PC /* Comment out this #define if you have a Unix, Mac, or other */
            /* system that isn't a generic PC running DOS or MS Windows.  */
 
-#define X11 /* Comment out this #define if you don't have X windows, or */
+//#define X11 /* Comment out this #define if you don't have X windows, or */
             /* else have them and don't wish to compile in X graphics.  */
 
 //#define WIN /* Comment out this #define if you don't have MS Windows, or */
@@ -123,10 +123,10 @@
                /* much less accurate calculation formulas to be compiled */
                /* into the program (as accessed with -bm).               */
 
-#define PS /* Comment out this #define if you don't want the ability to */
+//#define PS /* Comment out this #define if you don't want the ability to */
            /* generate charts in the PostScript graphics format.        */
 
-#define META /* Comment out this #define if you don't want the ability to  */
+//#define META /* Comment out this #define if you don't want the ability to  */
              /* generate charts in the MS Windows metafile picture format. */
 
 #define SVG /* Comment out this #define if you don't want the ability to */
@@ -147,7 +147,7 @@
 #define CONSTEL /* Comment out this #define if you don't want any of the */
                 /* astronomical constellation charts in the program.     */
 
-#define BIORHYTHM /* Comment out this #define if you don't want the    */
+//#define BIORHYTHM /* Comment out this #define if you don't want the    */
                   /* non-astrological biorhythm charts in the program. */
 
 #define EXPRESS /* Comment out this #define if you don't want programmable */
