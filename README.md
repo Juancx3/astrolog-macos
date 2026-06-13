@@ -1,6 +1,6 @@
 # Astrolog — macOS Front End
 
-A project to build a native **macOS (SwiftUI)** front end for **Astrolog 8.00**,
+This is an attempt to build a native **macOS (SwiftUI)** front end for **Astrolog 8.00**,
 a long-standing astrology/astronomy charting engine written in C/C++. The app
 drives the existing Astrolog command-line engine as a subprocess and displays
 the charts it renders — it **does not reimplement** the calculations.
