@@ -265,15 +265,25 @@ public enum AstrologRunner {
         proc.standardOutput = out
         proc.standardError = err
 
+        // Drain both pipes concurrently with execution. Reading only after
+        // waitUntilExit() deadlocks: a child that writes more than the ~64KB
+        // pipe buffer blocks, while the parent blocks waiting for it to exit.
+        var outData = Data(), errData = Data()
+        let group = DispatchGroup()
+        let q = DispatchQueue.global(qos: .userInitiated)
+        group.enter()
+        q.async { outData = out.fileHandleForReading.readDataToEndOfFile(); group.leave() }
+        group.enter()
+        q.async { errData = err.fileHandleForReading.readDataToEndOfFile(); group.leave() }
+
         try proc.run()
         proc.waitUntilExit()
+        group.wait()
 
-        let errData = err.fileHandleForReading.readDataToEndOfFile()
         if proc.terminationStatus != 0 {
             throw RunError.nonZeroExit(proc.terminationStatus,
                 stderr: String(decoding: errData, as: UTF8.self))
         }
-        let outData = out.fileHandleForReading.readDataToEndOfFile()
         return String(decoding: outData, as: UTF8.self)
     }
 }
