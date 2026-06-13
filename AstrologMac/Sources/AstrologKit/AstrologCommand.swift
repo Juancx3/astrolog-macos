@@ -231,8 +231,15 @@ public struct AstrologCommand {
 /// Runs the `astrolog` binary with the given command and returns its stdout.
 public enum AstrologRunner {
 
-    public enum RunError: Error {
+    public enum RunError: LocalizedError {
         case nonZeroExit(Int32, stderr: String)
+
+        public var errorDescription: String? {
+            switch self {
+            case let .nonZeroExit(code, stderr):
+                return "astrolog exited \(code): \(stderr.isEmpty ? "(no stderr)" : stderr)"
+            }
+        }
     }
 
     /// - Parameters:
@@ -245,6 +252,10 @@ public enum AstrologRunner {
     public static func run(binary: String,
                            command: AstrologCommand,
                            workingDirectory: URL) throws -> String {
+        // Xcode strips the execute bit when copying binaries to the bundle.
+        try? FileManager.default.setAttributes([.posixPermissions: 0o755],
+                                               ofItemAtPath: binary)
+
         let proc = Process()
         proc.executableURL = URL(fileURLWithPath: binary)
         proc.arguments = command.arguments()
