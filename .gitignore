@@ -33,3 +33,6 @@ Debug/
 Release/
 x64/
 .vs/
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json
