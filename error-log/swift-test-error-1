@@ -1,0 +1,32 @@
+[1/1] Planning build
+Building for debugging...
+[9/9] Linking AstrologMacPackageTests
+Build complete! (10.40s)
+Test Suite 'All tests' started at 2026-06-13 09:57:57.809.
+Test Suite 'AstrologMacPackageTests.xctest' started at 2026-06-13 09:57:57.810.
+Test Suite 'AstrologCommandTests' started at 2026-06-13 09:57:57.810.
+Test Case '-[AstrologKitTests.AstrologCommandTests testChartTypeFlag]' started.
+Test Case '-[AstrologKitTests.AstrologCommandTests testChartTypeFlag]' passed (0.001 seconds).
+Test Case '-[AstrologKitTests.AstrologCommandTests testColorOffForcesUnderscoreForm]' started.
+Test Case '-[AstrologKitTests.AstrologCommandTests testColorOffForcesUnderscoreForm]' passed (0.000 seconds).
+Test Case '-[AstrologKitTests.AstrologCommandTests testFullCommandAssemblyOrder]' started.
+Test Case '-[AstrologKitTests.AstrologCommandTests testFullCommandAssemblyOrder]' passed (0.000 seconds).
+Test Case '-[AstrologKitTests.AstrologCommandTests testFullMomentTrimsTrailingZeros]' started.
+Test Case '-[AstrologKitTests.AstrologCommandTests testFullMomentTrimsTrailingZeros]' passed (0.000 seconds).
+Test Case '-[AstrologKitTests.AstrologCommandTests testGraphicsOutputOrderAndOptions]' started.
+Test Case '-[AstrologKitTests.AstrologCommandTests testGraphicsOutputOrderAndOptions]' passed (0.000 seconds).
+Test Case '-[AstrologKitTests.AstrologCommandTests testJulianMoment]' started.
+/Users/juan/VSCode/AstrologMac/astrolog-macos/AstrologMac/Tests/AstrologKitTests/AstrologCommandTests.swift:15: error: -[AstrologKitTests.AstrologCommandTests testJulianMoment] : XCTAssertEqual failed: ("["-qj", "2.46117e+06"]") is not equal to ("["-qj", "2461173.5"]")
+Test Case '-[AstrologKitTests.AstrologCommandTests testJulianMoment]' failed (0.062 seconds).
+Test Case '-[AstrologKitTests.AstrologCommandTests testSynastryWithSecondChartSlot]' started.
+Test Case '-[AstrologKitTests.AstrologCommandTests testSynastryWithSecondChartSlot]' passed (0.000 seconds).
+Test Suite 'AstrologCommandTests' failed at 2026-06-13 09:57:57.874.
+	 Executed 7 tests, with 1 failure (0 unexpected) in 0.063 (0.064) seconds
+Test Suite 'AstrologMacPackageTests.xctest' failed at 2026-06-13 09:57:57.874.
+	 Executed 7 tests, with 1 failure (0 unexpected) in 0.063 (0.064) seconds
+Test Suite 'All tests' failed at 2026-06-13 09:57:57.874.
+	 Executed 7 tests, with 1 failure (0 unexpected) in 0.063 (0.065) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.
