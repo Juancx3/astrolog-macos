@@ -32,15 +32,18 @@ final class ChartViewModel: ObservableObject {
         binaryPath = Bundle.main.path(forResource: "astrolog", ofType: nil)
             ?? "/usr/local/bin/astrolog"
 
-        // Swiss Ephemeris has a 255-char path limit. DerivedData paths easily
-        // exceed this in dev builds. Symlink the resources to a short /tmp path.
+        // Swiss Ephemeris has a 255-char path limit. DerivedData paths in dev
+        // builds exceed this because getcwd() resolves symlinks to the real path.
+        // Copy resources to a real /tmp directory with a short path on first launch.
+        // Delete /tmp/astrolog-res manually if you update bundled resources.
         let realResources = Bundle.main.resourceURL
             ?? URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        let shortLink = URL(fileURLWithPath: "/tmp/astrolog-res")
+        let shortDir = URL(fileURLWithPath: "/tmp/astrolog-res")
         let fm = FileManager.default
-        try? fm.removeItem(at: shortLink)
-        try? fm.createSymbolicLink(at: shortLink, withDestinationURL: realResources)
-        resourceDirectory = shortLink
+        if !fm.fileExists(atPath: shortDir.path) {
+            try? fm.copyItem(at: realResources, to: shortDir)
+        }
+        resourceDirectory = shortDir
     }
 
     func stepForward()  { julianDay += stepUnit.days; renderChart() }
