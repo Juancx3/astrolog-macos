@@ -1,0 +1,35 @@
+# ---- Compiled Astrolog CLI engine ----
+/astrolog
+/astrolog.exe
+*.o
+*.obj
+
+# ---- Swift / SwiftPM ----
+AstrologMac/.build/
+AstrologMac/.swiftpm/
+**/Package.resolved
+
+# ---- Xcode (generated; regenerate via XcodeGen or Xcode) ----
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+
+# ---- Generated chart output ----
+*.svg
+*.png.tmp
+/chart.*
+/out.*
+
+# ---- macOS / editor cruft ----
+.DS_Store
+*.swp
+.vscode/
+
+# ---- Windows / MSVC build artifacts ----
+*.user
+*.suo
+Debug/
+Release/
+x64/
+.vs/
