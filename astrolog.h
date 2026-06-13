@@ -123,7 +123,7 @@
                /* much less accurate calculation formulas to be compiled */
                /* into the program (as accessed with -bm).               */
 
-//#define PS /* Comment out this #define if you don't want the ability to */
+#define PS /* Comment out this #define if you don't want the ability to */
            /* generate charts in the PostScript graphics format.        */
 
 //#define META /* Comment out this #define if you don't want the ability to  */
