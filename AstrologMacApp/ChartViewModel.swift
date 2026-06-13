@@ -29,21 +29,33 @@ final class ChartViewModel: ObservableObject {
     private let resourceDirectory: URL
 
     init() {
-        binaryPath = Bundle.main.path(forResource: "astrolog", ofType: nil)
-            ?? "/usr/local/bin/astrolog"
-
-        // Swiss Ephemeris has a 255-char path limit. DerivedData paths in dev
-        // builds exceed this because getcwd() resolves symlinks to the real path.
-        // Copy resources to a real /tmp directory with a short path on first launch.
-        // Delete /tmp/astrolog-res manually if you update bundled resources.
-        let realResources = Bundle.main.resourceURL
-            ?? URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        let shortDir = URL(fileURLWithPath: "/tmp/astrolog-res")
         let fm = FileManager.default
-        if !fm.fileExists(atPath: shortDir.path) {
-            try? fm.copyItem(at: realResources, to: shortDir)
+
+        // Swiss Ephemeris builds its search path as "." + ":" + argv[0] directory.
+        // In dev builds argv[0] is the long DerivedData path, which pushes the
+        // combined string past SE's 255-char limit. Fix: copy both the binary and
+        // the resources to short /tmp paths so argv[0] and the working dir are short.
+        // Delete these manually if you update bundled resources.
+
+        let shortBin = "/tmp/astrolog"
+        let shortRes = URL(fileURLWithPath: "/tmp/astrolog-res")
+
+        // Copy binary
+        if let bundleBin = Bundle.main.path(forResource: "astrolog", ofType: nil),
+           !fm.fileExists(atPath: shortBin) {
+            try? fm.copyItem(atPath: bundleBin, toPath: shortBin)
         }
-        resourceDirectory = shortDir
+        try? fm.setAttributes([.posixPermissions: 0o755], ofItemAtPath: shortBin)
+        binaryPath = fm.fileExists(atPath: shortBin) ? shortBin : "/usr/local/bin/astrolog"
+
+        // Copy resources
+        if let bundleRes = Bundle.main.resourceURL,
+           !fm.fileExists(atPath: shortRes.path) {
+            try? fm.copyItem(at: bundleRes, to: shortRes)
+        }
+        resourceDirectory = fm.fileExists(atPath: shortRes.path)
+            ? shortRes
+            : (Bundle.main.resourceURL ?? URL(fileURLWithPath: FileManager.default.currentDirectoryPath))
     }
 
     func stepForward()  { julianDay += stepUnit.days; renderChart() }
